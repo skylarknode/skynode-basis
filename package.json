@@ -1,0 +1,42 @@
+{
+  "author": [
+    {
+      "name": "lwf",
+      "email": "lwf@tech.hudaokeji.com",
+      "web": "http://www.hudaokeji.com"
+    }
+  ],
+  "name": "skynode-basis",
+  "description": "The skynode basis engine.",
+  "main": "./index",
+  "version": "0.9.0",
+  "preferGlobal": "true",
+  "homepage": "",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/skylarknode/skynode-basis.git"
+  },
+  "scripts": {},
+  "dependencies": {
+    "async": "2.6.1",
+    "express": "^4.16.2",
+    "express-session": "^1.17.1",
+    "lodash": "^4.17.20",
+    "mongodb": "3.1.13",
+    "mubsub-nbb": "^1.6.1",
+    "nconf": "^0.10.0",
+    "pg": "^7.18.2",
+    "prompt": "^1.0.0",
+    "redis": "2.8.0",
+    "semver": "^5.7.1",
+    "winston": "3.1.0",
+    "skylark-langx-strings": "git+https://github.com/skylark-langx/skylark-langx-strings.git#master",
+    "skynode-kvs": "git+https://github.com/skylarknode/skynode-kvs.git",
+    "skynode-nfs": "git+https://github.com/skylarknode/skynode-nfs.git"
+
+  },
+  "engines": {
+    "node": "7"
+  },
+  "license": "MIT"
+}
