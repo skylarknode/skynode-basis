@@ -8,7 +8,7 @@ var _ = require('lodash');
 
 var db = require('./database');
 var batch = require('./batch');
-var user = require('../../src/user');
+var user = require('./user');
 var utils = require('./utils');
 
 var events = module.exports;
