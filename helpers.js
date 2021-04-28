@@ -110,8 +110,8 @@ function generateChildrenCategories(category) {
 	category.children.forEach(function (child) {
 		if (child && !child.isSection) {
 			var link = child.link ? child.link : (relative_path + '/category/' + child.slug);
-			html += '<span class="category-children-item pull-left">' +
-				'<div class="icon pull-left" style="' + generateCategoryBackground(child) + '">' +
+			html += '<span class="category-children-item">' +
+				'<div class="icon" style="' + generateCategoryBackground(child) + '">' +
 				'<i class="fa fa-fw ' + child.icon + '"></i>' +
 				'</div>' +
 				'<a href="' + link + '"><small>' + child.name + '</small></a></span>';
