@@ -46,14 +46,15 @@ var buildImports = {
 	admin: function (source) {
 		return source + '\n' + [
 			//'@import "font-awesome";',
-			'@import  "skylark-ajaxify-shells/skins/bs3/fontawesome/less/font-awesome.less";',
+			'@import  "skylark-appify-shells/skins/bs3/fontawesome/less/font-awesome.less";',
 			'@import "skybb-slax/admin/admin";',
 			'@import "skybb-slax/generics.less";',
 			//'@import (inline) "../public/vendor/colorpicker/colorpicker.css";',
 			'@import (inline) "skylark-jqueryui/themes/bs3/jquery-ui-1.10.3.custom.css";',
-			'@import (inline) "skylark-ajaxify-shells/skins/bs3/bootstrap-taginput/bootstrap-taginput.css";',
+			'@import (inline) "skylark-appify-shells/skins/bs3/bootstrap-taginput/bootstrap-taginput.css";',
 			//			'@import (inline) "../node_modules/skylark-widgets-shells/skins/materialize/material.css";',
-			'@import (inline) "skylark-ajaxify-shells/skins/bs3/bootstrap-material-design/bootstrap-material-design.css";',
+			'@import (inline) "skylark-appify-shells/skins/bs3/bootstrap-material-design/bootstrap-material-design.css";',
+			'@import (inline) "skylark-eyecon-colorpicker/skins/default/colorpicker.css";',
 //			'@import (inline) "../slax/node_modules/skylark-widgets-shells/skins/bs3/bootstrap-material-design/ripples.css";',
 		].map(function (str) {
 			return str.replace(/\//g, path.sep);
