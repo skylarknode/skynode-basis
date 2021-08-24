@@ -49,6 +49,7 @@ Templates.processImports = processImports;
 var themeNamePattern = /^(@.*?\/)?(nodebb|skybb)-theme-.*$/;//modified by lwf
 
 function getTemplateDirs(activePlugins, callback) {
+	console.log("base_dir:" + nconf.get('base_dir'));
 	var pluginTemplates = activePlugins.map(function (id) {
 		if (themeNamePattern.test(id)) {
 			return nconf.get('theme_templates_path');
@@ -78,8 +79,12 @@ function getTemplateDirs(activePlugins, callback) {
 	themeTemplates = _.uniq(themeTemplates.reverse());
 
 	var coreTemplatesPath = nconf.get('core_templates_path');
+	if (!coreTemplatesPath) {
+		coreTemplatesPath = path.join(nconf.get('base_dir'),'slax/src/templates');		
+	}
 
-	var templateDirs = _.uniq([coreTemplatesPath].concat(themeTemplates, pluginTemplates));
+	///var templateDirs = _.uniq([coreTemplatesPath].concat(themeTemplates, pluginTemplates));
+	var templateDirs = _.uniq([coreTemplatesPath].concat(pluginTemplates));
 
 	async.filter(templateDirs, file.exists, callback);
 }
