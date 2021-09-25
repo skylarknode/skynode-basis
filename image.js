@@ -86,6 +86,8 @@ image.size = function (path, callback) {
 			callback(err, image ? { width: image.width, height: image.height } : undefined);
 		});
 	} else {
+		callback(null,  { width: 0, height: 0});
+		return; //// TODO：don't use sharp module, modified by lwf 
 		var sharp = requireSharp();
 		sharp(path, { failOnError: true }).metadata(function (err, metadata) {
 			callback(err, metadata ? { width: metadata.width, height: metadata.height } : undefined);
@@ -177,7 +179,7 @@ image.isFileTypeAllowed = function (path, callback) {
 			callback(err);
 		});
 	}
-	return callback(); // don't use sharp module, modified by lwf 
+	return callback(); // TODO：don't use sharp module, modified by lwf 
 	
 	require('sharp')(path, {
 		failOnError: true,
