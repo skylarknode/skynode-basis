@@ -146,26 +146,26 @@ image.sizeFromBase64 = function (imageData) {
 	return Buffer.from(imageData.slice(imageData.indexOf('base64') + 7), 'base64').length;
 };
 
-image.uploadImage = function (filename, folder, image, callback) {
+image.uploadImage = function (filename, folder, imageFile, callback) {
 	if (plugins.hasListeners('filter:uploadImage')) {
 		return plugins.fireHook('filter:uploadImage', {
-			image: image,
-			uid: image.uid,
+			image: imageFile,
+			uid: imageFile.uid,
 		}, callback);
 	}
 
 	async.waterfall([
 		function (next) {
-			file.isFileTypeAllowed(image.path, next);
+			image.isFileTypeAllowed(imageFile.path, next);
 		},
 		function (next) {
-			file.saveFileToLocal(filename, folder, image.path, next);
+			file.saveFileToLocal(filename, folder, imageFile.path, next);
 		},
 		function (upload, next) {
 			next(null, {
 				url: upload.url,
 				path: upload.path,
-				name: image.name,
+				name: imageFile.name,
 			});
 		},
 	], callback);
