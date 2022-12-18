@@ -18,24 +18,19 @@
   },
   "scripts": {},
   "dependencies": {
-    "async": "2.6.1",
-    "express": "^4.16.2",
-    "express-session": "^1.17.1",
-    "lodash": "^4.17.20",
-    "mongodb": "3.1.13",
-    "mubsub-nbb": "^1.6.1",
+    "async": "^3.0.0",
+    "lodash": "^4.0.0",
     "nconf": "^0.10.0",
     "prompt": "^1.0.0",
-    "redis": "2.8.0",
-    "semver": "^5.7.1",
-    "winston": ">2.0.0",
+    "semver": "^7.0.0",
     "skylark-langx-strings": "git+https://github.com/skylark-langx/skylark-langx-strings.git",
     "skynode-kvs": "git+https://github.com/skylarknode/skynode-kvs.git",
-    "skynode-nfs": "git+https://github.com/skylarknode/skynode-nfs.git"
+    "skynode-nfs": "git+https://github.com/skylarknode/skynode-nfs.git",
+    "winston": "^3.0.0"
 
   },
   "engines": {
-    "node": "7"
+    "node": ">=18"
   },
   "license": "MIT"
 }
