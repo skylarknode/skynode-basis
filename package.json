@@ -20,7 +20,7 @@
   "dependencies": {
     "async": "^3.0.0",
     "lodash": "^4.0.0",
-    "nconf": "^0.0.0",
+    "nconf": "~0",
     "prompt": "^1.0.0",
     "semver": "^7.0.0",
     "skylark-langx-strings": "git+https://github.com/skylark-langx/skylark-langx-strings.git",
