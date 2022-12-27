@@ -33,7 +33,7 @@
     "postcss-clean": "^1.0.0",
     "socket.io": "^4.0.0",
     "socketio-wildcard": "2.0.0",
-    "uglify-es": "^3.0.0",//aa
+    "uglify-es": "^3.0.0",
     "zxcvbn": "^4.0.0",
     
     "winston": "^3.0.0"
