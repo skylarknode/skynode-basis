@@ -25,20 +25,29 @@ Sockets.init = function (server) {
 
 	var SocketIO = require('socket.io');
 	var socketioWildcard = require('socketio-wildcard')();
-	io = new SocketIO({
+	io = new SocketIO.Server({
 		path: nconf.get('relative_path') + '/socket.io',
 	});
 
 	if (nconf.get('singleHostCluster')) {
 		io.adapter(require('./single-host-cluster'));
 	} else if (nconf.get('redis')) {
-		io.adapter(require('skynode-kvs/redis').socketAdapter());
+		io.adapter(require('./adapters/redis')());
 	} else {
-		io.adapter(db.socketAdapter());
+		io.adapter(require('./adapters/'+nconf.get('database'))());
 	}
 
 	io.use(socketioWildcard);
 	io.use(authorize);
+
+	var opts = {
+
+	};
+	var	transports = nconf.get('socket.io:transports');
+
+	if (transports) {
+		opts.transports = transports;
+	}
 
 	io.on('connection', onConnection);
 
@@ -56,13 +65,17 @@ Sockets.init = function (server) {
 		const origins = nconf.get('socket.io:origins') || `${parsedUrl.protocol}//${domain}:*`;
 		nconf.set('socket.io:origins', origins);
 
-		io.origins(origins);
+		//io.origins(origins);
+		opts.cors =  {
+    	 origin: origins,
+    	 methods: ["GET", "POST"],
+    	 allowedHeaders: ["content-type"],
+    	 credentials: true
+  		};
 		winston.info('[socket.io] Restricting access to origin: ' + origins);
 	}
 
-	io.listen(server, {
-		transports: nconf.get('socket.io:transports'),
-	});
+	io.listen(server, opts);
 
 	Sockets.server = io;
 };

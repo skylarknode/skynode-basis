@@ -9,12 +9,44 @@ var pubsub = require('../pubsub');
 
 module.exports = function (User) {
 	User.blocks = {
-		_cache: new LRU({
-			max: 100,
-			length: function () { return 1; },
-			maxAge: 0,
-		}),
+		 _cache : new LRU({
+		  max: 100,
+
+		  // for use with tracking overall storage size
+		  maxSize: 5000,
+
+		  maxAge: 0,
+
+		  sizeCalculation: (value, key) => {
+		    return 1
+		  },
+
+		  // for use when you need to clean up something when objects
+		  // are evicted from the cache
+		  dispose: (value, key) => {
+		    freeFromMemoryOrWhatever(value)
+		  },
+
+		  length: function () { return 1; },
+
+
+		  // how long to live in ms
+		  ttl: 1000 * 60 * 5,
+
+		  // return stale items before removing from cache?
+		  allowStale: false,
+
+		  updateAgeOnGet: false,
+		  updateAgeOnHas: false,
+
+		  // async method to use for cache.fetch(), for
+		  // stale-while-revalidate type of behavior
+		  fetchMethod: async (key, staleValue, { options, signal }) => {}
+		})
+
 	};
+
+
 
 	User.blocks.is = function (targetUid, uid, callback) {
 		User.blocks.list(uid, function (err, blocks) {

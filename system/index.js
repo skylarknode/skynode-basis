@@ -21,6 +21,8 @@
 
 console.log("serve");
 
+require('amd-loader');
+
 
 var nconf = require('nconf');
 nconf.argv().env({
@@ -55,7 +57,6 @@ winston.verbose('* using configuration stored in: %s', configFile);
 
 
 function setupWinston() {
-	console.log("winston.format:" + winston.format);
 	if (!winston.format) {
 		return;
 	}
@@ -265,9 +266,9 @@ function restart() {
 function shutdown(code) {
 	winston.info('[app] Shutdown (SIGTERM/SIGINT) Initialised.');
 	async.waterfall([
-		function (next) {
-			require('./src/webserver').destroy(next);
-		},
+		///function (next) {
+		///	require('skynode-server').destroy(next);
+		///},
 		function (next) {
 			winston.info('[app] Web server closed to connections.');
 			require('skynode-basis/analytics').writeData(next);

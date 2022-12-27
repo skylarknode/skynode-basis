@@ -1,20 +1,18 @@
 'use strict';
 
-require('amd-loader');
-
 var fs = require('fs');
 var nconf = require('nconf');
 var path = require('path');
 var winston = require('winston');
 var mkdirp = require('mkdirp');
 var mime = require('mime');
-var graceful = require('graceful-fs');
+///var graceful = require('graceful-fs'); //TODO:lwf
 
 //var utils = require('./utils');
 
 var strings = require("skylark-langx-strings");
 
-graceful.gracefulify(fs);
+///graceful.gracefulify(fs);
 
 var nfs = require("skynode-nfs");
 
