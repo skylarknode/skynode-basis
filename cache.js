@@ -35,8 +35,15 @@ class LRU2 extends LRU {
 
 var cache = new LRU2({
 	max: 1000,
-	maxSize:1000,
-	maxAge: 0,
+	maxSize:10000,
+	///maxAge: 0,
+	ttl: 1000 * 60 * 5,
+    sizeCalculation: (value, key) => {
+    	// return an positive integer which is the size of the item,
+    	// if a positive integer is not returned, will use 0 as the size.
+    	return 1
+  	}
+
 });
 
 cache.hits = 0;

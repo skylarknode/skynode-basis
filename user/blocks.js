@@ -21,14 +21,7 @@ module.exports = function (User) {
 		    return 1
 		  },
 
-		  // for use when you need to clean up something when objects
-		  // are evicted from the cache
-		  dispose: (value, key) => {
-		    freeFromMemoryOrWhatever(value)
-		  },
-
 		  length: function () { return 1; },
-
 
 		  // how long to live in ms
 		  ttl: 1000 * 60 * 5,

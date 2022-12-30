@@ -35,12 +35,6 @@ var ipCache = new LRU({
     return 1
   },
 
-  // for use when you need to clean up something when objects
-  // are evicted from the cache
-  dispose: (value, key) => {
-    freeFromMemoryOrWhatever(value)
-  },
-
   // how long to live in ms
   ttl: 1000 * 60 * 5,
 
@@ -210,9 +204,10 @@ Analytics.getDailyStatsForSet = function (set, day, numDays, callback) {
 	day.setDate(day.getDate() + 1);	// set the date to tomorrow, because getHourlyStatsForSet steps *backwards* 24 hours to sum up the values
 	day.setHours(0, 0, 0, 0);
 
-	async.whilst(function () {
+	async.whilst(function (cb) {
 		numDays -= 1;
-		return numDays + 1;
+		//return numDays + 1;
+		cb(null,numDays + 1);
 	}, function (next) {
 		Analytics.getHourlyStatsForSet(set, day.getTime() - (1000 * 60 * 60 * 24 * numDays), 24, function (err, day) {
 			if (err) {
