@@ -8,7 +8,7 @@ var winston = require('winston');
 var less = require('less');
 var postcss = require('postcss');
 var autoprefixer = require('autoprefixer');
-var clean = require('postcss-clean');
+var clean = require('./postcss/clean');
 
 var fork = require('./debugFork');
 require('../file'); // for graceful-fs

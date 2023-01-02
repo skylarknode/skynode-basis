@@ -1,7 +1,7 @@
 'use strict'
 
-import postcss from 'postcss'
-import CleanCss from 'clean-css'
+const postcss = require('postcss');
+const CleanCss = require('clean-css');
 
 const initializer = (opts = {}) => {
   const cleancss = new CleanCss(opts)
@@ -24,4 +24,4 @@ const initializer = (opts = {}) => {
   }
 }
 
-export default postcss.plugin('clean', initializer)
+module.exports = postcss.plugin('clean', initializer)

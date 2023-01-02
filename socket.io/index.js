@@ -102,8 +102,10 @@ function onConnect(socket) {
 	}
 
 	socket.join('sess_' + socket.request.signedCookies[nconf.get('sessionKey')]);
-	io.sockets.sockets[socket.id].emit('checkSession', socket.uid);
-	io.sockets.sockets[socket.id].emit('setHostname', os.hostname());
+	///io.sockets.sockets[socket.id].emit('checkSession', socket.uid);
+	///io.sockets.sockets[socket.id].emit('setHostname', os.hostname());
+	socket.emit('checkSession', socket.uid);
+	socket.emit('setHostname', os.hostname());
 }
 
 function onMessage(socket, payload) {
