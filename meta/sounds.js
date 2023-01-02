@@ -3,7 +3,10 @@
 var path = require('path');
 var fs = require('fs');
 var rimraf = require('rimraf');
-var mkdirp = require('mkdirp');
+///var mkdirp = require('mkdirp');
+var nfs = require('skynode-nfs');
+var mkdirp = nfs.mkdir;
+
 var async = require('async');
 
 var file = require('../file');

@@ -3,7 +3,10 @@
 var async = require('async');
 var fs = require('fs');
 var path = require('path');
-var mkdirp = require('mkdirp');
+///var mkdirp = require('mkdirp');
+var nfs = require('skynode-nfs');
+var mkdirp = nfs.mkdir;
+
 var winston = require('winston');
 
 var nconf = require('nconf');

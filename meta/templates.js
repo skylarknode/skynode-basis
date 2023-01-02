@@ -1,6 +1,9 @@
 'use strict';
 
-var mkdirp = require('mkdirp');
+///var mkdirp = require('mkdirp');
+var nfs = require('skynode-nfs');
+var mkdirp = nfs.mkdir;
+
 var rimraf = require('rimraf');
 var winston = require('winston');
 var async = require('async');

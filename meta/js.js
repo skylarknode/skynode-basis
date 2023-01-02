@@ -3,7 +3,9 @@
 var path = require('path');
 var async = require('async');
 var fs = require('fs');
-var mkdirp = require('mkdirp');
+///var mkdirp = require('mkdirp');
+var nfs = require('skynode-nfs');
+var mkdirp = nfs.mkdir;
 var rimraf = require('rimraf');
 
 var file = require('../file');
@@ -12,13 +14,15 @@ var minifier = require('./minifier');
 
 var nconf = require('nconf');
 
+
 var JS = module.exports;
 
 JS.scripts = {
 	// modified by lwf
 	base: [
-		'node_modules/promise-polyfill/dist/polyfill.js',
-		'node_modules/socket.io-client/dist/socket.io.js',
+		///'node_modules/promise-polyfill/dist/polyfill.js',
+		///'node_modules/socket.io-client/dist/socket.io.js',
+		'slax/packages/socket.io.js',
 		// /'public/vendor/xregexp/xregexp.js',
 		// /'public/vendor/xregexp/unicode/unicode-base.js',
 

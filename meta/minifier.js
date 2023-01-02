@@ -34,7 +34,7 @@ Object.defineProperty(Minifier, 'maxThreads', {
 	enumerable: true,
 });
 
-Minifier.maxThreads = os.cpus().length - 1;
+Minifier.maxThreads = 0; /// os.cpus().length - 1;
 
 Minifier.killAll = function () {
 	pool.forEach(function (child) {
@@ -271,6 +271,7 @@ Minifier.js.minifyBatch = function (scripts, fork, callback) {
 function buildCSS(data, callback) {
 	less.render(data.source, {
 		paths: data.paths,
+		javascriptEnabled: true
 	}, function (err, lessOutput) {
 		if (err) {
 			return callback(err);
