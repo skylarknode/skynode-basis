@@ -33,12 +33,13 @@
     "bcryptjs": "^2.0.0",
     "html-to-text": "^9.0.0",
     "postcss": "^8.0.0",
-    "postcss-clean": "^1.0.0",
+    "clean-css": "^5.0.0",
     "socket.io": "^4.0.0",
     "socketio-wildcard": "2.0.0",
     "uglify-es": "^3.0.0",
     "zxcvbn": "^4.0.0",
-    
+    "sanitize-html": "^2.x",
+
     "winston": "^3.0.0"
 
   },
