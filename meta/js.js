@@ -87,7 +87,9 @@ JS.scripts = {
 
 	// files listed below are only available client-side, or are bundled in to reduce # of network requests on cold load
 	rjs: [
-		'slax/dist/scripts/slax-skybb-client.js'
+		'slax/dist/scripts/slax-skybb-client.js',
+		'slax/packages/client.init.js',
+
 
 /*
 		'public/src/client/footer.js',
@@ -126,7 +128,8 @@ JS.scripts = {
 	],
 
 	admin: [
-		'slax/dist/scripts/slax-skybb-admin.js'
+		'slax/dist/scripts/slax-skybb-admin.js',
+		'slax/packages/admin.init.js',
 
 /*
 		//'node_modules/material-design-lite/material.js',

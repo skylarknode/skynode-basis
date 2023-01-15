@@ -19,6 +19,8 @@ function setupWinston() {
 	const winstonError = winston.error;
 	winston.error = function (msg, error) {
 		console.log("winston.error:" + msg);
+		console.error(error);
+		ddd
 		if (msg instanceof Error) {
 			winstonError(msg);
 		} else if (error instanceof Error) {
