@@ -1,19 +1,18 @@
 'use strict';
 
 var async = require('async');
-var fs = require('fs');
-var path = require('path');
+
 ///var mkdirp = require('mkdirp');
 var nfs = require('skynode-nfs');
 var mkdirp = nfs.mkdir;
 
 var winston = require('winston');
 
-var nconf = require('nconf');
+var nconf = require('../system/parameters');
 
 
-//var filePath = path.join(__dirname, '../../build/cache-buster');
-var filePath = path.join(nconf.get('base_dir'), 'build/cache-buster');
+//var filePath = nfs.join(__dirname, '../../build/cache-buster');
+var filePath = nfs.join(nconf.get('base_dir'), 'build/cache-buster');
 
 var cached;
 
@@ -25,10 +24,10 @@ function generate() {
 exports.write = function write(callback) {
 	async.waterfall([
 		function (next) {
-			mkdirp(path.dirname(filePath), next);
+			mkdirp(nfs.dirname(filePath), next);
 		},
 		function (data, next) {
-			fs.writeFile(filePath, generate(), next);
+			nfs.writeFile(filePath, generate(), next);
 		},
 	], callback);
 };
@@ -38,7 +37,7 @@ exports.read = function read(callback) {
 		return callback(null, cached);
 	}
 
-	fs.readFile(filePath, 'utf8', function (err, buster) {
+	nfs.readFile(filePath, 'utf8', function (err, buster) {
 		if (err) {
 			winston.warn('[cache-buster] could not read cache buster', err);
 			return callback(null, generate());

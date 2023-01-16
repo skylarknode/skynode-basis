@@ -6,13 +6,13 @@ var cron = require('cron').CronJob;
 var nconf = require('nconf');
 var _ = require('lodash');
 
-var db = require('skynode-basis/database');
+var db = require('./database');
 var User = require('./user');
 var groups = require('./groups');
-var meta = require('skynode-basis/meta');
-var batch = require('skynode-basis/batch');
-var plugins = require('skynode-basis/plugins');
-var utils = require('skynode-basis/utils');
+var meta = require('./meta');
+var batch = require('./batch');
+var plugins = require('./plugins');
+var utils = require('./utils');
 //var emailer = require('./emailer');
 
 var Notifications = module.exports;

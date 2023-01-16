@@ -134,8 +134,10 @@ setupWinston();
 
 if (!process.send) {
 	// If run using `node app`, log GNU copyright info along with server info
-	winston.info('SkyNode v' + nconf.get('version'));
-
+	winston.info('NodeBB v' + nconf.get('version') + ' Copyright (C) 2013-' + (new Date()).getFullYear() + ' NodeBB Inc.');
+	winston.info('This program comes with ABSOLUTELY NO WARRANTY.');
+	winston.info('This is free software, and you are welcome to redistribute it under certain conditions.');
+	winston.info('');
 }
 
 function start() {
@@ -243,7 +245,7 @@ function addProcessHandlers() {
 	process.on('uncaughtException', function (err) {
 		winston.error(err);
 
-		require('skynode-basis/meta').js.killMinifier();
+		///require('skynode-basis/meta').js.killMinifier();
 		restart(); //  modified by lwf
 		//shutdown(1);
 	});

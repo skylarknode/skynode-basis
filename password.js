@@ -4,7 +4,7 @@ var path = require('path');
 var bcrypt = require('bcryptjs');
 var async = require('async');
 
-var fork = require('./meta/debugFork');
+var fork = require('./helpers/os/debugFork');
 
 exports.hash = function (rounds, password, callback) {
 	forkChild({ type: 'hash', rounds: rounds, password: password }, callback);
