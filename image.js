@@ -1,12 +1,13 @@
 'use strict';
 
 var os = require('os');
-var fs = require('fs');
-var path = require('path');
+///var fs = require('fs');
+///var path = require('path');
 var crypto = require('crypto');
 var async = require('async');
 
-var file = require('./file');
+///var file = require('./file');
+var nfs = require('./helpers/files/nfs');
 var plugins = require('./plugins');
 
 var image = module.exports;
@@ -37,7 +38,7 @@ image.resizeImage = function (data, callback) {
 		var sharpImage;
 		async.waterfall([
 			function (next) {
-				fs.readFile(data.path, next);
+				nfs.readFile(data.path, next);
 			},
 			function (buffer, next) {
 				var sharp = requireSharp();
@@ -114,7 +115,7 @@ image.checkDimensions = function (path, callback) {
 };
 
 image.convertImageToBase64 = function (path, callback) {
-	fs.readFile(path, 'base64', callback);
+	nfs.readFile(path, 'base64', callback);
 };
 
 image.mimeFromBase64 = function (imageData) {
@@ -122,20 +123,20 @@ image.mimeFromBase64 = function (imageData) {
 };
 
 image.extensionFromBase64 = function (imageData) {
-	return file.typeToExtension(image.mimeFromBase64(imageData));
+	return nfs.typeToExtension(image.mimeFromBase64(imageData));
 };
 
 image.writeImageDataToTempFile = function (imageData, callback) {
 	var filename = crypto.createHash('md5').update(imageData).digest('hex');
 
 	var type = image.mimeFromBase64(imageData);
-	var extension = file.typeToExtension(type);
+	var extension = nfs.typeToExtension(type);
 
-	var filepath = path.join(os.tmpdir(), filename + extension);
+	var filepath = nfs.join(os.tmpdir(), filename + extension);
 
 	var buffer = Buffer.from(imageData.slice(imageData.indexOf('base64') + 7), 'base64');
 
-	fs.writeFile(filepath, buffer, {
+	nfs.writeFile(filepath, buffer, {
 		encoding: 'base64',
 	}, function (err) {
 		callback(err, filepath);
@@ -159,7 +160,7 @@ image.uploadImage = function (filename, folder, imageFile, callback) {
 			image.isFileTypeAllowed(imageFile.path, next);
 		},
 		function (next) {
-			file.saveFileToLocal(filename, folder, imageFile.path, next);
+			nfs.saveFileToLocal(filename, folder, imageFile.path, next);
 		},
 		function (upload, next) {
 			next(null, {
