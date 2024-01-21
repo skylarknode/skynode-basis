@@ -21,9 +21,6 @@
 
 console.log("serve");
 
-require('amd-loader');
-
-
 var nconf = require('nconf');
 nconf.argv().env({
 	separator: '__',

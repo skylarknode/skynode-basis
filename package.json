@@ -25,6 +25,7 @@
     "nconf": "~0",
     "prompt": "^1.x",
     "semver": "^7.x",
+    "skynode-define": "git+https://github.com/skylarknode/skynode-define.git",
     "skylark-langx-strings": "git+https://github.com/skylark-langx/skylark-langx-strings.git",
     "skynode-kvs": "git+https://github.com/skylarknode/skynode-kvs.git",
     "skynode-nfs": "git+https://github.com/skylarknode/skynode-nfs.git",
