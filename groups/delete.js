@@ -18,6 +18,7 @@ module.exports = function (Groups) {
 				Groups.getGroupsData(groupNames, next);
 			},
 			function (_groupsData, next) {
+				console.log("Groups.destroy:2");
 				groupsData = _groupsData.filter(Boolean);
 				if (!groupsData.length) {
 					return callback();
@@ -25,6 +26,7 @@ module.exports = function (Groups) {
 
 				async.parallel([
 					function (next) {
+
 						var keys = [];
 						groupNames.forEach(function (groupName) {
 							keys.push('group:' + groupName,

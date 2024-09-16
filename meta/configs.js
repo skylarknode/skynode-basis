@@ -1,6 +1,5 @@
 
 'use strict';
-
 var async = require('async');
 var nconf = require('nconf');
 var path = require('path');
@@ -8,13 +7,14 @@ var winston = require('winston');
 
 var db = require('../database');
 var pubsub = require('../pubsub');
-var Meta = require('../meta');
+///var Meta = require('../meta');
 var cacheBuster = require('./cacheBuster');
+
 const defaults = require('./data/defaults');
 
 var Configs = module.exports;
 
-Meta.config = {};
+var config = require('./config');
 
 function deserialize(config) {
 	var deserialized = {};
@@ -49,18 +49,16 @@ function deserialize(config) {
 Configs.deserialize = deserialize;
 
 Configs.init = function (callback) {
-	var config;
 	async.waterfall([
 		function (next) {
 			Configs.list(next);
 		},
 		function (_config, next) {
-			config = _config;
+			updateLocalConfig(_config);
 			cacheBuster.read(next);
 		},
 		function (buster, next) {
 			config['cache-buster'] = 'v=' + (buster || Date.now());
-			Meta.config = config;
 			next();
 		},
 	], callback);
@@ -135,8 +133,8 @@ Configs.setOnEmpty = function (values, callback) {
 			db.getObject('config', next);
 		},
 		function (data, next) {
-			var config = Object.assign({}, values, data ? deserialize(data) : {});
-			db.setObject('config', config, next);
+			var config2 = Object.assign({}, values, data ? deserialize(data) : {});
+			db.setObject('config', config2, next);
 		},
 	], callback);
 };
@@ -200,12 +198,12 @@ function updateConfig(config) {
 	pubsub.publish('config:update', config);
 }
 
-function updateLocalConfig(config) {
-	Object.assign(Meta.config, config);
+function updateLocalConfig(newConfig) {
+	Object.assign(config, newConfig);
 }
 
-pubsub.on('config:update', function onConfigReceived(config) {
-	if (typeof config === 'object' && Meta.config) {
-		updateLocalConfig(config);
+pubsub.on('config:update', function onConfigReceived(newConfig) {
+	if (typeof newConfig === 'object') {
+		updateLocalConfig(newConfig);
 	}
 });

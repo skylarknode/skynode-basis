@@ -10,7 +10,6 @@ var winston = require('winston');
 
 var nconf = require('../system/parameters');
 
-
 //var filePath = nfs.join(__dirname, '../../build/cache-buster');
 var filePath = nfs.join(nconf.get('base_dir'), 'build/cache-buster');
 

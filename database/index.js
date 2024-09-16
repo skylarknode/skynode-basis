@@ -6,7 +6,7 @@ var databaseName = nconf.get('database');
 var winston = require('winston');
 
 if (!databaseName) {
-	winston.error(new Error('Database type not set! Run ./skybb setup'));//modified by lwf
+	console.error("Database type not set! Run ./skybb setup",new Error('Database type not set! Run ./skybb setup'));//modified by lwf
 	process.exit();
 }
 

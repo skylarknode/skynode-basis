@@ -111,7 +111,7 @@ Themes.get = function (callback) {
 						next(null, configObj);
 					} catch (err) {
 						winston.error('[themes] Unable to parse theme.json ' + theme);
-						next(null, null);
+						throw err;
 					}
 				});
 			}, next);

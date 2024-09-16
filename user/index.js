@@ -303,9 +303,6 @@ User.addInterstitials = function (callback) {
 							digestEnabled: meta.config.dailyDigestFreq !== 'off',
 						},
 						callback: function (userData, formData, next) {
-							console.log("formdata:");
-							console.log(formData);
-							console.log("stack",new Error("stack"));
 							if (formData.gdpr_agree_data === 'on' && formData.gdpr_agree_email === 'on') {
 								userData.gdpr_consent = true;
 							}

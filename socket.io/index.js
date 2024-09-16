@@ -27,6 +27,15 @@ Sockets.init = function (server) {
 	var socketioWildcard = require('socketio-wildcard')();
 	io = new SocketIO.Server({
 		path: nconf.get('relative_path') + '/socket.io',
+		// modified by lwf for test
+		  cors: {
+		    origin: function (origin, fn) {
+		      //const isTarget = origin !== undefined && origin.match(/^https?:\/\/www\.test\.net/) !== null;
+		      const isTarget = true;
+		      return isTarget ? fn(null, origin) : fn('error invalid domain');
+		    },
+		    credentials: true
+		  }
 	});
 
 	if (nconf.get('singleHostCluster')) {
@@ -93,7 +102,6 @@ function onConnection(socket) {
 }
 
 function onConnect(socket) {
-	console.log("oonConnect:socket.uid:" + socket.uid);
 	if (socket.uid) {
 		socket.join('uid_' + socket.uid);
 		socket.join('online_users');
@@ -225,10 +233,13 @@ function authorize(socket, callback) {
 			cookieParser(request, {}, next);
 		},
 		function (next) {
+			console.log("io.sessionKey:" + nconf.get('sessionKey'));
+			console.log("io.signedCookies:" + request.signedCookies[nconf.get('sessionKey')]);
 			db.sessionStore.get(request.signedCookies[nconf.get('sessionKey')], function (err, sessionData) {
 				if (err) {
 					return next(err);
 				}
+				console.dir(sessionData);
 				if (sessionData && sessionData.passport && sessionData.passport.user) {
 					request.session = sessionData;
 					socket.uid = parseInt(sessionData.passport.user, 10);

@@ -16,11 +16,6 @@
 	You should have received a copy of the GNU General Public License
 	along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-
-
-
-console.log("serve");
-
 var nconf = require('nconf');
 nconf.argv().env({
 	separator: '__',
@@ -60,6 +55,7 @@ function setupWinston() {
 
 	// allow winton.error to log error objects properly
 	// https://github.com/SkyBB/SkyBB/issues/6848
+	/*
 	const winstonError = winston.error;
 	winston.error = function (msg, error) {
 		console.log("winston.error:" + msg);
@@ -70,9 +66,10 @@ function setupWinston() {
 			winstonError(msg);
 		} else {
 			winstonError.apply(null, arguments);
+			winstonError(msg,error);
 		}
 	};
-
+    */
 
 	// https://github.com/winstonjs/winston/issues/1338
 	// error objects are not displayed properly
@@ -93,7 +90,7 @@ function setupWinston() {
 	});
 	var formats = [];
 	formats.push(enumerateErrorFormat());
-	if (nconf.get('log-colorize') !== 'false') {
+	if (nconf.get('log-colorize') === 'true') {
 		formats.push(winston.format.colorize());
 	}
 
@@ -115,10 +112,10 @@ function setupWinston() {
 		level: nconf.get('log-level') || (global.env === 'production' ? 'info' : 'verbose'),
 		format: winston.format.combine.apply(null, formats),
 		transports: [
-			new winston.transports.Console({
-				handleExceptions: true,
-				level: 'error'  // add by lwf
-			}),
+			///new winston.transports.Console({
+			///	handleExceptions: true,
+			///	level: 'error'  // add by lwf
+			///}),
 			new winston.transports.Console({
 				handleExceptions: true,
 				level: 'info'  // add by lwf
@@ -127,7 +124,7 @@ function setupWinston() {
 	});
 }
 
-setupWinston();
+////setupWinston(); // lwf
 
 if (!process.send) {
 	// If run using `node app`, log GNU copyright info along with server info
@@ -137,7 +134,14 @@ if (!process.send) {
 	winston.info('');
 }
 
-function start() {
+function start(paths) {
+	nconf.file({
+		file: paths.config
+	});
+ 	nconf.defaults({
+  		base_dir: paths.baseDir
+  	});
+
 	console.log("start");
 	//var db = require('skynode-basis/database');
 	//var meta = require('skynode-basis/meta');
