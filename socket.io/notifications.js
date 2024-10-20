@@ -4,7 +4,10 @@ var async = require('async');
 
 var user = require('../user');
 var notifications = require('../notifications');
-var SocketNotifs = module.exports;
+
+var ns = require("./ns");
+
+var SocketNotifs = ns.notifications = module.exports;
 
 SocketNotifs.get = function (socket, data, callback) {
 	if (data && Array.isArray(data.nids) && socket.uid) {

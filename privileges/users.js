@@ -7,6 +7,9 @@ var _ = require('lodash');
 var groups = require('../groups');
 var plugins = require('../plugins');
 var helpers = require('./helpers');
+var user = require('../user');
+var meta = require('../meta');
+
 
 module.exports = function (privileges) {
 	privileges.users = {};
@@ -194,4 +197,51 @@ module.exports = function (privileges) {
 			},
 		], callback);
 	};
+
+	privileges.users.getUserDataByField = function (callerUid, field, fieldValue, callback) {
+		async.waterfall([
+			function (next) {
+				if (field === 'uid') {
+					next(null, fieldValue);
+				} else if (field === 'username') {
+					user.getUidByUsername(fieldValue, next);
+				} else if (field === 'email') {
+					user.getUidByEmail(fieldValue, next);
+				} else {
+					next(null, null);
+				}
+			},
+			function (uid, next) {
+				if (!uid) {
+					return next(null, null);
+				}
+				privileges.users.getUserDataByUID(callerUid, uid, next);
+			},
+		], callback);
+	};
+
+	privileges.users.getUserDataByUID = function (callerUid, uid, callback) {
+		if (parseInt(callerUid, 10) <= 0 && meta.config.privateUserInfo) {
+			return callback(new Error('[[error:no-privileges]]'));
+		}
+
+		if (!parseInt(uid, 10)) {
+			return callback(new Error('[[error:no-user]]'));
+		}
+
+		async.parallel({
+			userData: async.apply(user.getUserData, uid),
+			settings: async.apply(user.getSettings, uid),
+		}, function (err, results) {
+			if (err || !results.userData) {
+				return callback(err || new Error('[[error:no-user]]'));
+			}
+
+			results.userData.email = results.settings.showemail && !meta.config.hideEmail ? results.userData.email : undefined;
+			results.userData.fullname = results.settings.showfullname && !meta.config.hideFullname ? results.userData.fullname : undefined;
+
+			callback(null, results.userData);
+		});
+	};
+
 };

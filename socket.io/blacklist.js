@@ -7,7 +7,9 @@ var user = require('../user');
 var meta = require('../meta');
 var events = require('../events');
 
-var SocketBlacklist = module.exports;
+var ns = require("./ns");
+
+var SocketBlacklist = ns.blacklist = module.exports;
 
 SocketBlacklist.validate = function (socket, data, callback) {
 	meta.blacklist.validate(data.rules, callback);

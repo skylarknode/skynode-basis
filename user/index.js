@@ -36,10 +36,9 @@ require('./approval')(User);
 require('./invite')(User);
 require('./password')(User);
 ///require('./info')(User);
-///require('./online')(User);
+require('./online')(User);
 require('./blocks')(User);
 require('./uploads')(User);
-
 User.getUidsFromSet = function (set, start, stop, callback) {
 	if (set === 'users:online') {
 		var count = parseInt(stop, 10) === -1 ? stop : stop - start + 1;

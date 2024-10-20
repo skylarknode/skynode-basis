@@ -10,7 +10,7 @@ var pubsub = require('../pubsub');
 ///var Meta = require('../meta');
 var cacheBuster = require('./cacheBuster');
 
-const defaults = require('./data/defaults');
+const defaults = {}; // require('./data/defaults');
 
 var Configs = module.exports;
 

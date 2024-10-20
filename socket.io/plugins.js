@@ -1,6 +1,8 @@
 'use strict';
 
-var SocketPlugins = {};
+var ns = require("./ns");
+
+var SocketPlugins = ns.plugins = {};
 
 /*
 	This file is provided exclusively so that plugins can require it and add their own socket listeners.

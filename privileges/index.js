@@ -62,5 +62,6 @@ privileges.privilegeList = privileges.userPrivilegeList.concat(privileges.groupP
 
 require('./global')(privileges);
 require('./users')(privileges);
+require('./groups')(privileges);
 
 privileges.async = require('skynode-basis/promisify')(privileges);
