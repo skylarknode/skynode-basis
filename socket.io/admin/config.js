@@ -2,8 +2,11 @@
 var async = require('async');
 
 var meta = require('../../meta');
-
+var plugins = require('../../plugins');
 var SocketAdmin = require("../admin");
+var logger = require('../../logger');
+var sockets = require("../sockets");
+var events = require('../../events');
 
 var SocketConfig = SocketAdmin.config = module.exports;
 
@@ -44,7 +47,7 @@ SocketConfig.setMultiple = function (socket, data, callback) {
 						value: data[field],
 					};
 					plugins.fireHook('action:config.set', setting);
-					logger.monitorConfig({ io: index.server }, setting);
+					logger.monitorConfig({ io: sockets.server }, setting);
 				}
 			}
 

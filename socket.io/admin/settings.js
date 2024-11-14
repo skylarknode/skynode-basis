@@ -4,6 +4,7 @@ var async = require('async');
 var meta = require('../../meta');
 
 var SocketAdmin = require("../admin");
+var events = require('../../events');
 
 var SocketSettings = SocketAdmin.settings = module.exports;
 
