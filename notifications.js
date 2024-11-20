@@ -229,7 +229,7 @@ function pushToUids(uids, notification, callback) {
 				db.sortedSetsRemoveRangeByScore(readKeys, '-inf', oneWeekAgo, next);
 			},
 			function (next) {
-				var websockets = require('./socket.io');
+				var websockets = require('./socketio');
 				if (websockets.server) {
 					uids.forEach(function (uid) {
 						websockets.in('uid_' + uid).emit('event:new_notification', notification);

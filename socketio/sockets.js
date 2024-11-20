@@ -21,7 +21,7 @@ var Namespaces = Sockets.Namespaces =  require("./ns");
 var io;
 
 Sockets.init = function (server) {
-	var SocketIO = require('socket.io');
+	var SocketIO = require('socket.io'); //TODO : for avoiding a require search bug?
 	var socketioWildcard = require('socketio-wildcard')();
 	io = new SocketIO.Server({
 		path: nconf.get('relative_path') + '/socket.io',

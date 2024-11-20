@@ -145,7 +145,7 @@ function start(paths) {
 		*/
 		function (next) {
 			/*var webserver = require('./src/webserver');
-			require('./src/socket.io').init(webserver.server);
+			require('./src/socketio').init(webserver.server);
 
 			if (nconf.get('runJobs')) {
 				require('./src/notifications').startJobs();

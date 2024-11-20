@@ -198,6 +198,7 @@ Themes.setupPaths = function (callback) {
 			}, next);
 		},
 		function (data, next) {
+			console.log("data.currentThemeId:" + data.currentThemeId);
 			var themeId = data.currentThemeId || 'nodebb-theme-persona';
 
 			if (process.env.NODE_ENV === 'development') {

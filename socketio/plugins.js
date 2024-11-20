@@ -9,7 +9,7 @@ var SocketPlugins = ns.plugins = {};
 
 	How? From your plugin:
 
-		var SocketPlugins = require.main.require('./src/socket.io/plugins');
+		var SocketPlugins = require.main.require('./src/socketio/plugins');
 		SocketPlugins.myPlugin = {};
 		SocketPlugins.myPlugin.myMethod = function(socket, data, callback) { ... };
 

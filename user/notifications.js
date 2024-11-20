@@ -335,7 +335,7 @@ UserNotifications.sendNameChangeNotification = function (uid, username) {
 };
 
 UserNotifications.pushCount = function (uid) {
-	var websockets = require('./../socket.io');
+	var websockets = require('./../socketio');
 	UserNotifications.getUnreadCount(uid, function (err, count) {
 		if (err) {
 			return winston.error(err.stack);

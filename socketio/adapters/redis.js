@@ -1,4 +1,4 @@
-const redisModule = require('skynode-kvs/redis');
+const redisModule = require('skynode-kvs/redisdb');
 const nconf = require('nconf');
 const { createAdapter } = require("@socket.io/redis-adapter");
 
